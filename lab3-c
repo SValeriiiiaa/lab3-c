@@ -1,0 +1,61 @@
+#include <stdlib.h>
+#include <math.h>
+
+void matrA(int n, double A[n][n]);
+int main(){
+int n;
+printf("input n: ");
+scanf("%d", &n);
+double A[n][n];
+double X[n];
+
+//A
+void matrA(int n, double A[n][n]) {
+    for (int i=0; i<n; i++){
+        for (int j=0; j<n; j++){
+            A[i][j]=2*exp(i)-2*i-8.756*log(j+1);
+        }
+    }
+}
+matrA(n, A);
+// вектор X
+for (int j=0; j<n; j++){
+    double minstovp=A[0][j]; // мін значення в поточному стовпці А
+    int minindex=0;          // показ індекса рядка
+
+for (int i=0; i<n; i++){
+    if (A[i][j]<minstovp){
+        minstovp=A[i][j];
+        minindex=i;}
+}
+    if (minindex==n-1){
+        X[j]=A[minindex][j];
+    }else{
+        X[j]=A[minindex+1][j];}
+}
+// функція U
+double U=0;
+for (int i=0; i<n; i++){
+    U+=X[i];
+    U+=sqrt(fabs(X[i]+1-10));
+}
+// результати
+printf("matritca A:");
+printf("\n-------------------------------------------------------------------------------------------\n");
+for (int i=0; i<n; i++){
+    for (int j=0; j<n; j++){
+        printf("%10.2f ", A[i][j]);
+}
+printf("\n");
+}
+printf("-------------------------------------------------------------------------------------------\n");
+printf("\nvector X:\n");
+printf("-------------------------------------------------------------------------------------------\n");
+for (int i=0; i<n; i++){
+    printf("%10.2f ", X[i]);
+}
+printf("\n-------------------------------------------------------------------------------------------\n");
+printf("\nitog U: %10.2f\n", U);
+return 0;
+}
+
